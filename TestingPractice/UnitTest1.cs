@@ -3,12 +3,14 @@ using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
 using System.Linq;
 using System.Collections.Generic;
+using static TestingPractice.Tests;
 
 namespace TestingPractice
 {
     public class Tests
     {
-        public interface IMyList<T> {
+           internal interface IMyList<T>
+        {
 
             void Clear();
             void Add(T element);
@@ -20,6 +22,20 @@ namespace TestingPractice
             T this[int index] { get; set; }
             int Count();
         }
+
+        /*[Test]
+        public void Clear()
+        {
+            // Arrange
+            var myList = new MyList<int> { 1, 2, 3 };
+
+            // Act
+            myList.Clear();
+
+            // Assert
+            list.Should().BeEmpty();
+        }*/
+
 
         [Test]
         public void Clear()
@@ -48,7 +64,7 @@ namespace TestingPractice
         }
 
         [Test]
-        public void IndexOf_element()
+        public void IndexOf_Should_find_element_If_element_does_not_exist_return_negative_one()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -59,7 +75,7 @@ namespace TestingPractice
 
             // Assert
             indexOfTwo.Should().Be(1);
-            indexOfFive.Should().Be(-1);   
+            indexOfFive.Should().Be(-1);
         }
 
         [Test]
@@ -91,7 +107,7 @@ namespace TestingPractice
             list.Count.Should().Be(2);
         }
 
-      
+
         [Test]
         public void insert_element_should_be_inserted_and_in_right_order()
         {
@@ -99,7 +115,7 @@ namespace TestingPractice
             var list = new List<int> { 1, 2, 3 };
 
             // Act
-            list.Insert(3,4);
+            list.Insert(3, 4);
             list.Insert(2, 5);
 
             // Assert
@@ -107,7 +123,7 @@ namespace TestingPractice
         }
 
         [Test]
-        public void RemoveAt_ShouldRemoveItemAtIndex()
+        public void RemoveAt_Should_Remove_element_AtIndex()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -117,21 +133,22 @@ namespace TestingPractice
             // Assert
             list.Should().ContainInOrder(1, 3);
         }
-        /*[Test]
-        public void T this[int index] { get; set; }
+        [Test]
+        public void t_this()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
             // Act
-            list.RemoveAt(1);
+            list.Add(123);
+            list[0] = 456;
+            Console.WriteLine(list[0]);
 
             // Assert
-            list.Should().ContainInOrder(1, 3);
-        }*/
-
+            list.Should().Contain(456);
+        }
 
         [Test]
-        public void Count_of_items()
+        public void Count_elements()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -141,7 +158,6 @@ namespace TestingPractice
             // Assert
             Count.Should().Be(3);
         }
-
-
-}
+    
+    }
 }
