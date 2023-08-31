@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace TestingPractice
 {
@@ -10,13 +11,18 @@ namespace TestingPractice
         public interface IMyList<T> {
 
             void Clear();
-            void Add(T item);
-            void IndexOf();
-            bool Contains();
+            void Add(T element);
+            int IndexOf(T element);
+            bool Contains(T element);
+            void Insert(int index, T element);
+            void Remove(T element);
+            void RemoveAt(int index);
+            T this[int index] { get; set; }
+            int Count();
         }
 
         [Test]
-        public void Clear_All_Elements_From_List()
+        public void Clear()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -57,7 +63,7 @@ namespace TestingPractice
         }
 
         [Test]
-        public void if_contain_return_true()
+        public void if_contain_element_return_true()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -71,30 +77,8 @@ namespace TestingPractice
             containSix.Should().BeFalse();
         }
 
-        /*[Test]
-        public void Remove_ShouldRemoveItemFromList()
-        {
-            // Arrange
-            IList<string> list = new MyList<string>();
-            list.Add("apple");
-            list.Add("banana");
-            list.Add("cherry");
-
-            // Act
-            bool removedBanana = list.Remove("banana");
-            bool removedGrape = list.Remove("grape");
-
-            // Assert
-            removedBanana.Should().BeTrue(); // "banana" was in the list and removed
-            removedGrape.Should().BeFalse(); // "grape" was not in the list, so not removed
-
-            // Verify that "banana" is no longer in the list
-            list.Contains("banana").Should().BeFalse();
-            list.Count.Should().Be(2); // Only two items remaining in the list
-        }*/
-
         [Test]
-        public void remove()
+        public void remove_element()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -107,37 +91,57 @@ namespace TestingPractice
             list.Count.Should().Be(2);
         }
 
-
-
-
-
-        /*[Test]
-        public void if__element_is_pushed_to_stack_isEmpty_should_be_false()
+      
+        [Test]
+        public void insert_element_should_be_inserted_and_in_right_order()
         {
-
             // Arrange
-            Stack<int> myStack = new Stack<int>();
+            var list = new List<int> { 1, 2, 3 };
+
             // Act
-            myStack.Push(1);
-            myStack.Push(1);
+            list.Insert(3,4);
+            list.Insert(2, 5);
 
             // Assert
-            Assert.IsEmpty(myStack);
-
+            list.Should().ContainInOrder(1, 2, 5, 3, 4);
         }
 
+        [Test]
+        public void RemoveAt_ShouldRemoveItemAtIndex()
+        {
+            // Arrange
+            var list = new List<int> { 1, 2, 3 };
+            // Act
+            list.RemoveAt(1);
+
+            // Assert
+            list.Should().ContainInOrder(1, 3);
+        }
         /*[Test]
-       public void if_one_element_is_pushed_to_stack_isEmp()
-       {
+        public void T this[int index] { get; set; }
+        {
+            // Arrange
+            var list = new List<int> { 1, 2, 3 };
+            // Act
+            list.RemoveAt(1);
 
-           // Arrange
-           Stack<int> myStack = new Stack<int>();
-           // Act
-           myStack.Push(1);
+            // Assert
+            list.Should().ContainInOrder(1, 3);
+        }*/
 
-           // Assert
-           Assert.IsEmpty(myStack);
 
-       }*/
-    }
+        [Test]
+        public void Count_of_items()
+        {
+            // Arrange
+            var list = new List<int> { 1, 2, 3 };
+            // Act
+            int Count = list.Count;
+
+            // Assert
+            Count.Should().Be(3);
+        }
+
+
+}
 }
