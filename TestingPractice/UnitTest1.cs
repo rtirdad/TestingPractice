@@ -4,18 +4,17 @@ using FluentAssertions;
 using System.Linq;
 using System.Collections.Generic;
 using static TestingPractice.Tests;
+using NUnit.Framework;
 
 namespace TestingPractice
 {
     public class Tests
     {
-
         public class MyLinkedList
         { 
 
             internal interface IMyList<T>
             {
-
                 void Clear();
                 void Add(T element);
                 int IndexOf(T element);
@@ -26,7 +25,21 @@ namespace TestingPractice
                 T this[int index] { get; set; }
                 int Count();
             }
-          
+
+
+            /*[Test]
+            public void Clear()
+            {
+                // Arrange
+                var list = new MyLinkedList<int>();
+                list.add(1);
+
+                // Act
+                list.Clear();
+
+                // Assert
+                list.Should().BeEmpty();
+            }*/
 
 
             [Test]
@@ -41,6 +54,7 @@ namespace TestingPractice
                 // Assert
                 list.Should().BeEmpty();
             }
+
 
             [Test]
             public void AddElement_to_list()
@@ -129,14 +143,14 @@ namespace TestingPractice
             public void t_this()
             {
                 // Arrange
-                var list = new List<int>();
+                var list = new List<int> { 1, 2, 3 };
                 // Act
                 list.Add(123);
                 list[0] = 456;
                 Console.WriteLine(list[0]);
 
                 // Assert
-                list.Should().Contain(456);
+                list.Should().ContainInOrder(456,2,3);
             }
 
             [Test]
