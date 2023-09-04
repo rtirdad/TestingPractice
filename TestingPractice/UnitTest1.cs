@@ -26,7 +26,6 @@ namespace TestingPractice
                 int Count();
             }
 
-
             /*[Test]
             public void Clear()
             {
@@ -57,7 +56,7 @@ namespace TestingPractice
 
 
             [Test]
-            public void AddElement_to_list()
+            public void Add()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -70,7 +69,8 @@ namespace TestingPractice
             }
 
             [Test]
-            public void IndexOf_Should_find_element_If_element_does_not_exist_return_negative_one()
+            //public void IndexOf_Should_find_element_If_element_does_not_exist_return_negative_one()
+            public void IndexOf()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -85,7 +85,7 @@ namespace TestingPractice
             }
 
             [Test]
-            public void if_contain_element_return_true()
+            public void Contains()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -100,7 +100,7 @@ namespace TestingPractice
             }
 
             [Test]
-            public void remove_element()
+            public void Remove()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -115,7 +115,8 @@ namespace TestingPractice
 
 
             [Test]
-            public void insert_element_should_be_inserted_and_in_right_order()
+            //public void insert_element_should_be_inserted_and_in_right_order()
+            public void Insert()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -129,7 +130,7 @@ namespace TestingPractice
             }
 
             [Test]
-            public void RemoveAt_Should_Remove_element_AtIndex()
+            public void RemoveAt()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
@@ -154,7 +155,7 @@ namespace TestingPractice
             }
 
             [Test]
-            public void Count_elements()
+            public void Count()
             {
                 // Arrange
                 var list = new List<int> { 1, 2, 3 };
