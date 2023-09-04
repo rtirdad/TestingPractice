@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace TestingPractice
 {
-    internal interface IMyList<T>
+    interface IMyList<T>
     {
-        void Add(T item);
-
+        void Clear();
+        void Add(T element);
+        int IndexOf(T element);
+        bool Contains(T element);
+        void Insert(int index, T element);
+        void Remove(T element);
+        void RemoveAt(int index);
+        T this[int index] { get; set; }
+        int Count();
     }
+
 }

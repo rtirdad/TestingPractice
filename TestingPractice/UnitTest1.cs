@@ -7,48 +7,61 @@ using System.Collections;
 
 namespace TestingPractice
 {
-    public class MyLinkedList
-    {
-         interface IMyList<T>
-        {
-            void Clear();
-            void Add(T element);
-            int IndexOf(T element);
-            bool Contains(T element);
-            void Insert(int index, T element);
-            void Remove(T element);
-            void RemoveAt(int index);
-            T this[int index] { get; set; }
-            int Count();
-        }
-    }
+ 
 
     public class Tests
     {
         [Test]
-        public void Clear()
+        public void When_a_list_is_created_it_should_be_empty()
         {
-            // Arrange
-            var list = new List<int> { 1, 2, 3 };
-            // Act
-            list.Clear();
+            // Arrange / Act
+            var list = new MyList<int>();
 
             // Assert
-           list.Should().BeEmpty();
+           list.Count().Should().Be(0);
         }
 
-
         [Test]
-        public void Add()
+        public void When_one_element_is_added_the_count_should_be_one()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
 
             // Act
-            list.Add(4);
+            list.Add(1);
 
             // Assert
-            Assert.Contains(4, list);
+            list.Count().Should().Be(1);
+        }
+
+        [Test]
+        public void When_one_element_is_added_the_element_is_retreivable()
+        {
+            // Arrange
+            var list = new MyList<int>();
+
+            // Act
+            list.Add(123);
+
+            // Assert
+            list[0].Should().Be(123);
+        }
+
+        [Test]
+        public void IndexOf_Should_find_element_If_element_does_not_exist_return_negative_one()
+        {
+            // Arrange
+            var list = new MyList<int>();
+
+            // Act
+            list.Add(3);
+            list.Add(3);
+            int indexOfTwo = list.IndexOf(1);
+            int indexOfFive = list.IndexOf(5);
+
+            // Assert
+            indexOfTwo.Should().Be(1);
+            indexOfFive.Should().Be(-1);
         }
 
         [Test]
@@ -124,7 +137,7 @@ namespace TestingPractice
             list.Should().ContainInOrder(1, 3);
         }
         [Test]
-        public void t_this()
+        public void This()
         {
             // Arrange
             var list = new List<int> { 1, 2, 3 };
@@ -136,6 +149,21 @@ namespace TestingPractice
             // Assert
             list.Should().ContainInOrder(456, 2, 3);
         }
+
+        /*[Test]
+        public T this[int index]
+        {
+            // Arrange
+            var list = new List<int> { 1, 2, 3 };
+            // Act
+            list.Add(123);
+            list[0] = 456;
+            Console.WriteLine(list[0]);
+
+            // Assert
+            list.Should().ContainInOrder(456, 2, 3);
+        }*/
+
 
         [Test]
         public void Count()
@@ -150,9 +178,9 @@ namespace TestingPractice
         }
     }
 
-    public class MyList<T>
+    /*public class MyList<T>
     {
-        public MyList()
+        MyList()
         {
 
         }
@@ -166,6 +194,6 @@ namespace TestingPractice
             // Assert
             //myList.Should().BeEmpty();
         }
-    }
+    }*/
 
 }
