@@ -54,39 +54,41 @@ namespace TestingPractice
             var list = new MyList<int>();
 
             // Act
+            list.Add(6);
             list.Add(3);
-            list.Add(3);
-            int indexOfTwo = list.IndexOf(1);
+            int indexOfTwo = list.IndexOf(3);
             int indexOfFive = list.IndexOf(5);
 
             // Assert
             indexOfTwo.Should().Be(1);
             indexOfFive.Should().Be(-1);
         }
-
         [Test]
-        //public void IndexOf_Should_find_element_If_element_does_not_exist_return_negative_one()
-        public void IndexOf()
+        public void insert_element_should_be_inserted_and_in_right_order()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
-
+            var list = new MyList<int>();
+     
             // Act
-            int indexOfTwo = list.IndexOf(2);
-            int indexOfFive = list.IndexOf(5);
+            list.Insert(0, 1);
+            list.Insert(1, 2);
+            list.Insert(1, 3);
+            var indexOfOne = list.IndexOf(3);
 
             // Assert
-            indexOfTwo.Should().Be(1);
-            indexOfFive.Should().Be(-1);
+            //list.Should().ContainInOrder(1, 2, 5, 3, 4);
+            indexOfOne.Should().Be(1);
         }
 
         [Test]
-        public void Contains()
+        public void when_list_contains_element_should_give_back_true_otherwise_false()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
 
             // Act
+            list.Add(1);
+            list.Add(2);
             bool containOne = list.Contains(1);
             bool containSix = list.Contains(6);
 
@@ -96,45 +98,35 @@ namespace TestingPractice
         }
 
         [Test]
-        public void Remove()
+        public void When_element_is_removed_list_should_be_empty()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
 
             // Act
-            bool removedNum3 = list.Remove(2);
+            list.Add(1);
+            list.Add(2);
+            list.RemoveAt(1);
 
             // Assert
-            list.Contains(2).Should().BeFalse();
-            list.Count.Should().Be(2);
+            list.Contains(5).Should().BeTrue();
         }
+        
 
-
-        [Test]
-        //public void insert_element_should_be_inserted_and_in_right_order()
-        public void Insert()
-        {
-            // Arrange
-            var list = new List<int> { 1, 2, 3 };
-
-            // Act
-            list.Insert(3, 4);
-            list.Insert(2, 5);
-
-            // Assert
-            list.Should().ContainInOrder(1, 2, 5, 3, 4);
-        }
 
         [Test]
         public void RemoveAt()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
+
             // Act
-            list.RemoveAt(1);
+            list.Add(1);
+            list.Add(2);
+            //list.RemoveAt(1);
 
             // Assert
-            list.Should().ContainInOrder(1, 3);
+            list.Count().Should().Be(1);
         }
         [Test]
         public void This()
