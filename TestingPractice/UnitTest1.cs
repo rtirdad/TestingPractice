@@ -106,10 +106,10 @@ namespace TestingPractice
             // Act
             list.Add(1);
             list.Add(2);
-            list.RemoveAt(1);
+            list.Remove(2);
 
             // Assert
-            list.Contains(5).Should().BeTrue();
+            list.Count().Should().Be(1);
         }
         
 
@@ -118,15 +118,16 @@ namespace TestingPractice
         public void RemoveAt()
         {
             // Arrange
-            var list = new MyList<int>();
+            var list = new List<int> { 1, 2, 3 };
 
             // Act
             list.Add(1);
-            list.Add(2);
-            //list.RemoveAt(1);
+            list.Add(4);
 
+            list.RemoveAt(0);
             // Assert
-            list.Count().Should().Be(1);
+            
+            list.Count().Should().Be(2);
         }
         [Test]
         public void This()

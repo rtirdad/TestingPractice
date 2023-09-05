@@ -88,19 +88,44 @@ namespace TestingPractice
         public void Remove(T element)
         {
             _list.Remove(element);
-            /*int index = this.IndexOf(element);
-            if (index >= 0)
-            {
-                this.RemoveAt(index);
-            }*/
-           
+            count++;
 
+
+            /*int count = 0;
+            foreach (var item in _list)
+            {
+                if (item.Equals(element))
+                _list.Remove(item);
+                count++;
+            }  Console.WriteLine(count);*/
+
+
+            //LinkedListNode<T> newNode = new LinkedListNode<T>(element);
+
+
+
+            /*LinkedListNode<T> currentNode = _list.First;
+            while (currentNode != null)
+            {
+                if (currentNode.Equals(element))
+                {
+                    _list.Remove(currentNode);
+                    return;
+                }
+                currentNode = currentNode.Previous;
+            }*/
 
         }
 
         public void RemoveAt(int index)
         {
-            RemoveAt(IndexOf(value));
+            int count = 0;
+            foreach (var item in _list)
+            {
+                if (item.Equals(index))
+                    _list.Remove(item);
+                count++;
+            }
         }
 
         public T AtIndex(int index)
@@ -108,7 +133,6 @@ namespace TestingPractice
             int count = 0;
             foreach (var item in _list)
             {
-                
                 if (index.Equals(count)) return item;
                 count++;
             }
