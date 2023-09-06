@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using static TestingPractice.Tests;
 using NUnit.Framework;
 using System.Collections;
+using Microsoft.VisualBasic;
 
 namespace TestingPractice
 {
@@ -104,89 +105,61 @@ namespace TestingPractice
             var list = new MyList<int>();
 
             // Act
-            list.Add(1);
-            list.Add(2);
-            list.Remove(2);
+            list.Add(134);
+            list.Remove(134);
 
             // Assert
-            list.Count().Should().Be(1);
+            list.Count().Should().Be(0);;
         }
         
 
 
         [Test]
-        public void RemoveAt()
+        public void elements_should_be_able_to_be_removed_at_index()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
 
             // Act
             list.Add(1);
             list.Add(4);
+            list.Add(5);
 
             list.RemoveAt(0);
+            list.RemoveAt(1);
             // Assert
-            
-            list.Count().Should().Be(2);
+
+            list.Count().Should().Be(1);
         }
         [Test]
         public void This()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
             // Act
             list.Add(123);
             list[0] = 456;
             Console.WriteLine(list[0]);
 
             // Assert
-            list.Should().ContainInOrder(456, 2, 3);
+            list[0].Should().Be(456);
         }
 
-        /*[Test]
-        public T this[int index]
-        {
-            // Arrange
-            var list = new List<int> { 1, 2, 3 };
-            // Act
-            list.Add(123);
-            list[0] = 456;
-            Console.WriteLine(list[0]);
-
-            // Assert
-            list.Should().ContainInOrder(456, 2, 3);
-        }*/
 
 
         [Test]
         public void Count()
         {
             // Arrange
-            var list = new List<int> { 1, 2, 3 };
+            var list = new MyList<int>();
             // Act
-            int Count = list.Count;
+            list.Add(1);
 
             // Assert
-            Count.Should().Be(3);
+            list.Count().Should().Be(1);
         }
     }
 
-    /*public class MyList<T>
-    {
-        MyList()
-        {
-
-        }
-        public void Clear()
-        {
-            // Arrange
-            var myList = new MyList<T>();
-            // Act
-            myList.Clear();
-
-            // Assert
-            //myList.Should().BeEmpty();
-        }
-    }*/
+ 
 
 }

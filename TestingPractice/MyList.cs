@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using NUnit.Framework;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security;
 using System.Xml.Linq;
@@ -9,22 +12,51 @@ namespace TestingPractice
     internal class MyList<T> : IMyList<T>
     {
         private int count;
-        private T value;
-
         LinkedList<T> _list =  new LinkedList<T>();
 
+        //public T this[int index] { get => AtIndex(index); set =>  ; }
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= _list.Count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                LinkedListNode<T> current = _list.First;
+                for (int i = 0; i < index; i++)
+                {
+                    current = current.Next;
+                    i++;
+                }
+                return current.Value;
+            }
+            set
+            {
+                if (index < 0 || index >= _list.Count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
 
-        public T this[int index] { get => AtIndex(index); set => throw new NotImplementedException(); }
+                LinkedListNode<T> current = _list.First;
+                for (int i = 0; i < index; i++)
+                {
+                    current = current.Next;
+                }
 
+                current.Value = value;
+            }
+        }
 
-        public void Add(T element)
+public void Add(T element)
         {
             _list.AddLast(element);
-            count++;
+
         }
 
         public void Clear()
         {
+            _list.Clear();
             count = 0;
         }
 
@@ -39,8 +71,9 @@ namespace TestingPractice
 
         public int Count()
         {
-            return count;
+            return _list.Count;
         }
+    
 
         public int IndexOf(T element)
         {
@@ -53,81 +86,53 @@ namespace TestingPractice
             return -1;
         }
 
-        public void Insert(int index, T element)
-        {
-        if (index<0 || index > _list.Count)
-            {
-                return;
-            }
+        public void Insert(int index, T element){
 
+            if (index < 0 || index > _list.Count)
+            {
+                return; 
+            }
             LinkedListNode<T> newNode = new LinkedListNode<T>(element);
 
             if (index == 0)
             {
                 _list.AddFirst(newNode);
-                return;
             }
-
-            if (index == _list.Count)
+            else if (index == _list.Count)
             {
-                _list.AddLast(newNode); return;
+                _list.AddLast(newNode);
             }
-
-            LinkedListNode<T> current = _list.First;
-            for(int i=0; i <= index -1; i++)
+            else
             {
-                if (current == null) return;
-                current = current.Next;
-
-            }
-
-            _list.AddAfter(current.Previous, newNode);
-
-        }
-
-        public void Remove(T element)
-        {
-            _list.Remove(element);
-            count++;
-
-
-            /*int count = 0;
-            foreach (var item in _list)
-            {
-                if (item.Equals(element))
-                _list.Remove(item);
-                count++;
-            }  Console.WriteLine(count);*/
-
-
-            //LinkedListNode<T> newNode = new LinkedListNode<T>(element);
-
-
-
-            /*LinkedListNode<T> currentNode = _list.First;
-            while (currentNode != null)
-            {
-                if (currentNode.Equals(element))
+                LinkedListNode<T> current = _list.First;
+                for (int i = 0; i < index; i++)
                 {
-                    _list.Remove(currentNode);
-                    return;
+                    if (current == null) return;
+                    current = current.Next;
                 }
-                currentNode = currentNode.Previous;
-            }*/
 
+                _list.AddAfter(current.Previous, newNode);
+            }
         }
 
+            public void Remove(T element)
+        {
+            RemoveAt(IndexOf(element));
+        }
         public void RemoveAt(int index)
         {
-            int count = 0;
-            foreach (var item in _list)
+            LinkedListNode<T> current = _list.First;
+            for (int i = 0; i <= index && current != null; i++)
             {
-                if (item.Equals(index))
-                    _list.Remove(item);
-                count++;
+                if (i != index)
+                {
+                    current = current.Next;
+                    continue;
+                }
+                _list.Remove(current);
+                count--; 
             }
         }
-
         public T AtIndex(int index)
         {
             int count = 0;
@@ -136,7 +141,8 @@ namespace TestingPractice
                 if (index.Equals(count)) return item;
                 count++;
             }
-            throw new NotImplementedException();
+            throw new IndexOutOfRangeException();
         }
+      
     }
 }
